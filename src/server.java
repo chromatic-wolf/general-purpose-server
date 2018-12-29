@@ -1,4 +1,5 @@
-// Java program for Checking Internet connectivity 
+package test;
+
 import java.util.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -21,37 +22,38 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.lang.management.RuntimeMXBean;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class server{
+public class main{
 
-	private static void printmsg(String message)
-	{
-		System.out.println(message);
-		message = null;
-	}
-	
-	private static void checkinternet()
-	{
-		try{
-	        String host="redhat.com";
-	        int port=80;
-	        int timeOutInMilliSec=5000;// 5 Seconds
-	        Socket socket = new Socket();
-	        socket.connect(new InetSocketAddress(host, port), timeOutInMilliSec);
+    private static void printmsg(String message)
+    {
+        System.out.println(message);
+        message = null;
+    }
+    
+    private static void checkinternet()
+    {
+        try{
+            String host="redhat.com";
+            int port=80;
+            int timeOutInMilliSec=5000;// 5 Seconds
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(host, port), timeOutInMilliSec);
 printmsg("Internet is Available");
-	        
-	    }
-	    catch(Exception ex){
-	    	printmsg("No Connectivity");
-	    }
-	}
-	
-	
+socket.close();
+
+        }
+        catch(Exception ex){
+            printmsg("No Connectivity");
+            
+        }
+    }
+    
+    
 static boolean isPrime(long n) {
     //check if n is a multiple of 2
     if (n%2==0) return false;
@@ -86,7 +88,7 @@ public static String getIp() throws Exception {
 
 private static void filedowndel()
 {
-	String FILE_URL = "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80";
+    String FILE_URL = "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80";
     String target = "test.jpg";
     
 
@@ -100,7 +102,7 @@ while ((byteContent = inputStream.read(data, 0, 1024)) != -1) {
 }
 } catch (IOException e) {
 // handles IO exceptions
-	printmsg("unable to download file");
+    printmsg("unable to download file");
 
 }
 
@@ -108,11 +110,11 @@ File tmpDir = new File("test.jpg");
 boolean exists = tmpDir.exists();
 if (exists == true)
 {
-	printmsg("file exists");
-	printmsg("deleting file");
+    printmsg("file exists");
+    printmsg("deleting file");
     if(tmpDir.delete()) 
     { 
-    	printmsg("File deleted successfully"); 
+        printmsg("File deleted successfully"); 
     } 
     else
     { 
@@ -128,26 +130,26 @@ if (exists == true)
 
 private static void calcprime()
 {
-	try(FileWriter fw = new FileWriter("primes.txt", true);
-		    BufferedWriter bw = new BufferedWriter(fw);
-		    PrintWriter out = new PrintWriter(bw))
-	{
+    try(FileWriter fw = new FileWriter("primes.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw))
+    {
 
 
-	long maxval = 9223372036854775807L;
-	 for (long i = 0; i < maxval; i++)
-	 {
-	boolean answer = isPrime(i);
+    long maxval = 9223372036854775807L;
+     for (long i = 0; i < maxval; i++)
+     {
+    boolean answer = isPrime(i);
 
-		out.println(Long.toString(i) + " " + String.valueOf(answer));
-	 }
-	}catch (IOException e) {
-	    printmsg("file writing failed");
+        out.println(Long.toString(i) + " " + String.valueOf(answer));
+     }
+    }catch (IOException e) {
+        printmsg("file writing failed");
 
-	    //exception handling left as an exercise for the reader
-	}
-	printmsg("Completed calculating prime nimbers from");
-	printmsg("0 to 9223372036854775807");
+        //exception handling left as an exercise for the reader
+    }
+    printmsg("Completed calculating prime nimbers from");
+    printmsg("0 to 9223372036854775807");
 }
 
 public static String formatFileSize(long size) {
@@ -186,43 +188,42 @@ public static Long convertToLong(Object o){
 
 private static void getcpu()
 {
-	printmsg("----------hardware info-------------");
-	OperatingSystemMXBean osMBean =
-			(OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-	 RuntimeMXBean runtimeMBean = ManagementFactory.getRuntimeMXBean();
-	 printmsg("Operating system:\t" + osMBean.getName());
-	 printmsg("Architecture:\t\t" + osMBean.getArch());
-	 printmsg("Number of processors:\t" + osMBean.getAvailableProcessors());
-	 OperatingSystemMXBean operatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean();
-	    for (Method method : operatingSystemMXBean.getClass().getDeclaredMethods()) {
-	      method.setAccessible(true);
-	      if (method.getName().startsWith("getTotal") || method.getName().startsWith("getFree")
-	          && Modifier.isPublic(method.getModifiers())) {
-	              Object value;
-	          try {
-	              value = method.invoke(operatingSystemMXBean);
-	          } catch (Exception e) {
-	              value = e;
-	          } // try
-	          printmsg(method.getName() + " = " + formatFileSize(convertToLong(value)));
-	      } // if
-	    } // for	
-	 printmsg("--------------------------------");
+    printmsg("----------hardware info-------------");
+    OperatingSystemMXBean osMBean =
+            (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+     printmsg("Operating system:\t" + osMBean.getName());
+     printmsg("Architecture:\t\t" + osMBean.getArch());
+     printmsg("Number of processors:\t" + osMBean.getAvailableProcessors());
+     OperatingSystemMXBean operatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean();
+        for (Method method : operatingSystemMXBean.getClass().getDeclaredMethods()) {
+          method.setAccessible(true);
+          if (method.getName().startsWith("getTotal") || method.getName().startsWith("getFree")
+              && Modifier.isPublic(method.getModifiers())) {
+                  Object value;
+              try {
+                  value = method.invoke(operatingSystemMXBean);
+              } catch (Exception e) {
+                  value = e;
+              } // try
+              printmsg(method.getName() + " = " + formatFileSize(convertToLong(value)));
+          } // if
+        } // for    
+     printmsg("--------------------------------");
 
-	 
-		printmsg("----------java info-------------");
-		printmsg("Java version: " + System.getProperty("java.version"));
-	printmsg("Free memory: " + 
-			formatFileSize(Runtime.getRuntime().freeMemory()));
-	long maxMemory = Runtime.getRuntime().maxMemory();
+     
+        printmsg("----------java info-------------");
+        printmsg("Java version: " + System.getProperty("java.version"));
+    printmsg("Free memory: " + 
+            formatFileSize(Runtime.getRuntime().freeMemory()));
+    long maxMemory = Runtime.getRuntime().maxMemory();
     /* Maximum amount of memory the JVM will attempt to use */
     printmsg("Maximum java memory: " + 
         (maxMemory == Long.MAX_VALUE ? "no limit" : formatFileSize(maxMemory)));
     printmsg("Total memory available to JVM: " + 
-    		formatFileSize(Runtime.getRuntime().totalMemory()));
-	printmsg("------------------------------------");
+            formatFileSize(Runtime.getRuntime().totalMemory()));
+    printmsg("------------------------------------");
 
-	printmsg("----------file system-------------");
+    printmsg("----------file system-------------");
     File[] roots = File.listRoots();
     for (File root : roots) {
         printmsg("File system root: " + root.getAbsolutePath());
@@ -231,14 +232,14 @@ private static void getcpu()
         printmsg("Usable space: " + formatFileSize(root.getUsableSpace()));
       }
     printmsg("----------------------------------");
-	
+    
     printmsg("----------system info-------------");
 try
 {
 printmsg("username: " + System.getProperty("user.name"));
 }catch(NullPointerException e)
 {
-	printmsg("username: NULL");
+    printmsg("username: NULL");
 }
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 LocalDateTime now = LocalDateTime.now();  
@@ -249,26 +250,25 @@ now = null;
 
 long upTime;
 try {
-	upTime = getSystemUptime();
-	printmsg("uptime: " + upTime + " ms");
-	
-	
-	Date date = new Date(upTime);
+    upTime = getSystemUptime();
+    printmsg("uptime: " + upTime + " ms");
+    
+    
+    Date date = new Date(upTime);
   
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
     formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
   
     String formatted = formatter.format(date);
     printmsg("Uptime: " + formatted);
-	
+    
     date = null;
     formatter = null;
     formatted = null; 
     upTime = 0;
-	
+    
 } catch (Exception e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
+    e.printStackTrace();
 }
 
 try {
@@ -283,7 +283,7 @@ i = null;
 }
     try
     {
-    	
+        
     
 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 printmsg("screen height: " + screenSize.getHeight());
@@ -291,7 +291,7 @@ printmsg("screen width: " + screenSize.getWidth());
 screenSize = null;
     }catch(java.awt.HeadlessException e)
     {
-    	printmsg("there is no display (headless)");
+        printmsg("there is no display (headless)");
     }
     printmsg("----------------------------------");
 
@@ -338,148 +338,146 @@ public static long getSystemUptime() throws Exception {
 
 private static void getProcess()
 {
-	OperatingSystemMXBean osMBean =
-			(OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-	 RuntimeMXBean runtimeMBean = ManagementFactory.getRuntimeMXBean();
-	 
-	 String os = osMBean.getName();
-	 
-	 if(os.contentEquals("Linux"))
-		{
-		 try {
-			    String line;
-			    Process p = Runtime.getRuntime().exec("ps -e");
-			    BufferedReader input =
-			            new BufferedReader(new InputStreamReader(p.getInputStream()));
-			    while ((line = input.readLine()) != null) {
+    OperatingSystemMXBean osMBean =
+            (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+     String os = osMBean.getName();
+     
+     if(os.contentEquals("Linux"))
+        {
+         try {
+                String line;
+                Process p = Runtime.getRuntime().exec("ps -e");
+                BufferedReader input =
+                        new BufferedReader(new InputStreamReader(p.getInputStream()));
+                while ((line = input.readLine()) != null) {
 printmsg(line); //<-- Parse data here.
-			    }
-			    input.close();
-			} catch (Exception err) {
-			    err.printStackTrace();
-			}
-		}
-	 if(os.contentEquals("Windows 10") || os.contentEquals("Windows 8") || os.contentEquals("Windows 7") || os.contentEquals("Windows xp") || os.contentEquals("Windows vista"))
-		{
-		 try {
-			    String line;
-			    Process p = Runtime.getRuntime().exec
-			    	    (System.getenv("windir") +"\\system32\\"+"tasklist.exe");
-			    BufferedReader input =
-			            new BufferedReader(new InputStreamReader(p.getInputStream()));
-			    while ((line = input.readLine()) != null) {
-			    	printmsg(line); //<-- Parse data here.
-			    }
-			    input.close();
-			} catch (Exception err) {
-			    err.printStackTrace();
-			}	
-		}
-	 if (!os.contentEquals("Linux") && !os.contentEquals("Windows 10") && !os.contentEquals("Windows 8") && !os.contentEquals("Windows 7") && !os.contentEquals("Windows xp") && !os.contentEquals("Windows vista"))
-		{
-		 printmsg(os);
-		 printmsg("you are either using mac (OSX) or an unknown OS");
-		}
-	
-	
+                }
+                input.close();
+            } catch (Exception err) {
+                err.printStackTrace();
+            }
+        }
+     if(os.contentEquals("Windows 10") || os.contentEquals("Windows 8") || os.contentEquals("Windows 7") || os.contentEquals("Windows xp") || os.contentEquals("Windows vista"))
+        {
+         try {
+                String line;
+                Process p = Runtime.getRuntime().exec
+                        (System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+                BufferedReader input =
+                        new BufferedReader(new InputStreamReader(p.getInputStream()));
+                while ((line = input.readLine()) != null) {
+                    printmsg(line); //<-- Parse data here.
+                }
+                input.close();
+            } catch (Exception err) {
+                err.printStackTrace();
+            }   
+        }
+     if (!os.contentEquals("Linux") && !os.contentEquals("Windows 10") && !os.contentEquals("Windows 8") && !os.contentEquals("Windows 7") && !os.contentEquals("Windows xp") && !os.contentEquals("Windows vista"))
+        {
+         printmsg(os);
+         printmsg("you are either using mac (OSX) or an unknown OS");
+        }
+    
+    
 }
 
 private static void downloadfile()
 {
-	List<String> urls = new ArrayList<>();
-	List<String> names = new ArrayList<>();
-	
-	
-	Scanner urlreader = new Scanner(System.in);
-	Scanner namereader = new Scanner(System.in);
-	printmsg("please enter the a URL and press enter");
-	printmsg("press enter without any text to continue");
-	String message = "";
-	while(true)
-	{
-		printmsg(message);
-		String url = urlreader.nextLine();
-		
-		if (url == null)
-		{
-			printmsg("null");
-			break;
-		}
-		if (url.length() == 0)
-		{
-			printmsg("nothing");
-			break;
-		}
-				
-				while(true)
-				{
-					printmsg("enter a name");
-					String name = namereader.nextLine();
-					if(name == null)
-					{
-					printmsg("you did not enter a name");	
-					}
-					if (name.length() == 0)
-					{
-						printmsg("you did not enter a name");
-					}
-					if (name.length() != 0 && name != null)
-					{
-						names.add(name);
-						printmsg("name: " + name);
-						break;
-					}
-				}
-				urls.add(url);
-
-				printmsg("using url: " + url);
-				printmsg("added");
-				
-		message = "enter another url or press enter";
-	}
-	urlreader.close();
-	namereader.close();
-	
-	Scanner input = new Scanner(System.in);
-
-	
-	printmsg("would you like to");
-	printmsg("1: Download 1 at a time");
-	printmsg("2: Download all at once");
-	printmsg("0: To cancel");
-
-	int option = input.nextInt();
-	
-	if (option == 1)
-	{
-		
-		for(int i = 0; i < names.size(); i++) {
-			printmsg(names.get(i));
+    List<String> urls = new ArrayList<>();
+    List<String> names = new ArrayList<>();
+    
+    
+    Scanner urlreader = new Scanner(System.in);
+    Scanner namereader = new Scanner(System.in);
+    printmsg("please enter the a URL and press enter");
+    printmsg("press enter without any text to continue");
+    String message = "";
+    while(true)
+    {
+        printmsg(message);
+        String url = urlreader.nextLine();
+        
+        if (url == null)
+        {
+            printmsg("null");
+            break;
         }
-		
-		
-	}
-	if (option == 2)
-	{
-		
-	}
-	if (option == 0)
-	{
-		
-	}
+        if (url.length() == 0)
+        {
+            printmsg("nothing");
+            break;
+        }
+                
+                while(true)
+                {
+                    printmsg("enter a name");
+                    String name = namereader.nextLine();
+                    if(name == null)
+                    {
+                    printmsg("you did not enter a name");   
+                    }
+                    if (name.length() == 0)
+                    {
+                        printmsg("you did not enter a name");
+                    }
+                    if (name.length() != 0 && name != null)
+                    {
+                        names.add(name);
+                        printmsg("name: " + name);
+                        break;
+                    }
+                }
+                urls.add(url);
+
+                printmsg("using url: " + url);
+                printmsg("added");
+                
+        message = "enter another url or press enter";
+    }
+    urlreader.close();
+    namereader.close();
+    
+    Scanner input = new Scanner(System.in);
+
+    
+    printmsg("would you like to");
+    printmsg("1: Download 1 at a time");
+    printmsg("2: Download all at once");
+    printmsg("0: To cancel");
+
+    int option = input.nextInt();
+    
+    if (option == 1)
+    {
+        
+        for(int i = 0; i < names.size(); i++) {
+            printmsg(names.get(i));
+        }
+        
+        
+    }
+    if (option == 2)
+    {
+        
+    }
+    if (option == 0)
+    {
+        
+    }
 if (option != 1 && option != 2 && option != 0)
 {
-	printmsg("you did not enter a valid number " + option);
+    printmsg("you did not enter a valid number " + option);
 }
-	
-	
+    input.close();
+    
 }
 
 
 
 public static void startserver()
 {
-	printmsg("feature not implemented yet");
+    printmsg("feature not implemented yet");
 
 } 
 
@@ -533,113 +531,115 @@ public static class ScanResult {
 
      public static void main(String []args)
      {
-    	 int option;
-    	 Scanner input = new Scanner(System.in);
-    	 do{
-  		   printmsg("what do you want to do");
-  		 printmsg("1: check internet");
-  		printmsg("2: get external ip");
-  		printmsg("3: check internet and file read/write");
-  		printmsg("4: calculate a lot of prime numbers");
-  		printmsg("5: get system info");
-  		printmsg("6: get running procceses");
-  		printmsg("7: start a networking server");
-  		printmsg("8: Download a file");
-  		printmsg("9: Port scan a target");
-  		printmsg("0: Exit");
+         int option;
+         Scanner input = new Scanner(System.in);
+         do{
+           printmsg("what do you want to do");
+         printmsg("1: check internet");
+        printmsg("2: get external ip");
+        printmsg("3: check internet and file read/write");
+        printmsg("4: calculate a lot of prime numbers");
+        printmsg("5: get system info");
+        printmsg("6: get running procceses");
+        printmsg("7: start a networking server");
+        printmsg("8: Download a file");
+        printmsg("9: Port scan a target");
+        printmsg("0: Exit");
 try
 {
-	option = input.nextInt();	
+    option = input.nextInt();   
 
-    		 
-    		    if (option ==  0) { 
-    		    	printmsg("exiting application");
-    		   System.exit(0);
-    		    }
-    		    if (option == 1)
-    		    {
-    		    	checkinternet();
-    		    }
-    		    if (option == 2)
-    		    {
-    		    	try {
-    		    		printmsg(getIp());
-					} catch (Exception e) {
-						printmsg("could not get external ip");
-						e.printStackTrace();
-					}
-    		    }
-    		    if (option == 3)
-    		    {
-    		    	filedowndel();
-    		    }
-    		    if (option == 4)
-    		    {
-    		    	calcprime();
-    		    }
-    		    if (option == 5)
-    		    {
-    		    	getcpu();
-    		    }
-    		    if (option == 6)
-    		    {
-    		    	getProcess();
-    		    }
-    		    if (option == 7)
-    		    {
-    		    	startserver();
-    		    }
-    		    if (option == 8)
-    		    {
-    		    	downloadfile();
-    		    }
-    		    if (option == 9)
-    		    {
-    		    	 Scanner targetscanner = new Scanner(System.in);
+             
+                if (option ==  0) { 
+                    printmsg("exiting application");
+                    input.close();
+               System.exit(0);
+                }
+                if (option == 1)
+                {
+                    checkinternet();
+                }
+                if (option == 2)
+                {
+                    try {
+                        printmsg(getIp());
+                    } catch (Exception e) {
+                        printmsg("could not get external ip");
+                        e.printStackTrace();
+                    }
+                }
+                if (option == 3)
+                {
+                    filedowndel();
+                }
+                if (option == 4)
+                {
+                    calcprime();
+                }
+                if (option == 5)
+                {
+                    getcpu();
+                }
+                if (option == 6)
+                {
+                    getProcess();
+                }
+                if (option == 7)
+                {
+                    startserver();
+                }
+                if (option == 8)
+                {
+                    downloadfile();
+                }
+                if (option == 9)
+                {
+                     Scanner targetscanner = new Scanner(System.in);
 
-    		    	final ExecutorService es = Executors.newFixedThreadPool(20);
-    		    	printmsg("Enter a target ip");
-    		    	
-    		        final String ip = targetscanner.nextLine();
-    		        final int timeout = 200;
-    		        final List<Future<ScanResult>> futures = new ArrayList<>();
-    		        for (int port = 1; port <= 65535; port++) {
-    		            // for (int port = 1; port <= 80; port++) {
-    		            futures.add(portIsOpen(es, ip, port, timeout));
-    		        }
-    		        es.awaitTermination(200L, TimeUnit.MILLISECONDS);
-    		        int openPorts = 0;
-    		        for (final Future<ScanResult> f : futures) {
-    		            if (f.get().isOpen()) {
-    		                openPorts++;
-    		                System.out.println(f.get().getPort());
-    		            }
-    		        }
-    		    }
-    		    
-    		    if(option != 0 && option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 7 && option != 8 && option != 8)    
-    		    {
-    		    	printmsg(option + " is an invalid option");
+                    final ExecutorService es = Executors.newFixedThreadPool(20);
+                    printmsg("Enter a target ip");
+                    
+                    final String ip = targetscanner.nextLine();
+                    final int timeout = 200;
+                    final List<Future<ScanResult>> futures = new ArrayList<>();
+                    for (int port = 1; port <= 65535; port++) {
+                        // for (int port = 1; port <= 80; port++) {
+                        futures.add(portIsOpen(es, ip, port, timeout));
+                    }
+                    es.awaitTermination(200L, TimeUnit.MILLISECONDS);
+                    int openPorts = 0;
+                    for (final Future<ScanResult> f : futures) {
+                        if (f.get().isOpen()) {
+                            openPorts++;
+                            System.out.println(f.get().getPort());
+                        }
+                    }
+                    targetscanner.close();
+                }
+                
+                if(option != 0 && option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 7 && option != 8 && option != 8)    
+                {
+                    printmsg(option + " is an invalid option");
 
-    		    	
-    		    }
+                    
+                }
 }catch(InputMismatchException e)
 {
-	
-	printmsg("you did not enter a number");
-	break;
-	
+    
+    printmsg("you did not enter a number");
+    input.close();
+
+    break;
+    
 } catch (InterruptedException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
+    e.printStackTrace();
 } catch (ExecutionException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
+    e.printStackTrace();
 }
 
-    		} while(true); 
+            } while(true); 
 
-    	 
+         
  
 
         
