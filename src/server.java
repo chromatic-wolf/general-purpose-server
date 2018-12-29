@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.net.Socket;
@@ -527,13 +528,50 @@ public static class ScanResult {
 
 
 
+
+
+private static void shellcommand()
+{
+    Scanner commandscanner = new Scanner(System.in);
+printmsg("What command would you like to execute?");
+String command = commandscanner.nextLine();
+	
+	
+	StringBuffer output = new StringBuffer();
+
+	Process p;
+	try {
+		p = Runtime.getRuntime().exec(command);
+		p.waitFor();
+		BufferedReader reader = 
+                        new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                    String line = "";			
+		while ((line = reader.readLine())!= null) {
+			output.append(line + "\n");
+		}
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+printmsg(output.toString());
+command = null;
+output = null;
+p = null;
+
+
+
+}
+	
+
+
      public static void main(String []args)
      {
          int option;
          Scanner input = new Scanner(System.in);
          do{
-           printmsg("what do you want to do");
-         printmsg("1: check internet");
+        printmsg("what do you want to do");
+        printmsg("1: check internet");
         printmsg("2: get external ip");
         printmsg("3: check internet and file read/write");
         printmsg("4: calculate a lot of prime numbers");
@@ -542,6 +580,7 @@ public static class ScanResult {
         printmsg("7: start a networking server");
         printmsg("8: Download a file");
         printmsg("9: Port scan a target");
+        printmsg("10: Run shell command");
         printmsg("0: Exit");
 try
 {
@@ -614,8 +653,13 @@ try
                     }
                     targetscanner.close();
                 }
+                if (option == 10)
+                {
+                	shellcommand();
+                	
+                }
                 
-                if(option != 0 && option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 7 && option != 8 && option != 8)    
+                if(option != 0 && option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 7 && option != 8 && option != 8 && option != 9 && option != 10)    
                 {
                     printmsg(option + " is an invalid option");
 
